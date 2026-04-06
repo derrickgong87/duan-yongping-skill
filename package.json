@@ -1,0 +1,32 @@
+{
+  "name": "duan-yongping-skill",
+  "version": "1.0.0",
+  "description": "段永平（大道）思维操作系统 — 中国价值投资的认知框架",
+  "main": "SKILL.md",
+  "scripts": {
+    "test": "echo \"No test required. Validate SKILL.md structure manually.\"",
+    "validate": "echo \"🔍 Checking SKILL.md structure...\" && grep -q '心智模型' SKILL.md && grep -q '决策启发式' SKILL.md && grep -q '表达DNA' SKILL.md && grep -q '诚实边界' SKILL.md && echo '✅ SKILL.md is valid' || (echo '❌ SKILL.md validation failed' && exit 1)"
+  },
+  "keywords": [
+    "duan-yongping",
+    "value-investing",
+    "claude-code",
+    "skill",
+    "mental-models",
+    "investment",
+    "chinese-investor",
+    "benfen",
+    "warren-buffett",
+    "cognitive-framework"
+  ],
+  "author": "Derrick Gong",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derrickgong7/duan-yongping-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/derrickgong7/duan-yongping-skill/issues"
+  },
+  "homepage": "https://github.com/derrickgong7/duan-yongping-skill#readme"
+}

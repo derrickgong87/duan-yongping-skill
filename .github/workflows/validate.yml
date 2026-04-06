@@ -1,0 +1,69 @@
+name: 🔬 Skill Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Markdown files
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: '**/*.md'
+          config: .markdownlint.jsonc
+        continue-on-error: true
+
+      - name: Check for broken links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          check-modified-files-only: 'yes'
+          base-branch: 'main'
+        continue-on-error: true
+
+      - name: Validate SKILL.md structure
+        run: |
+          echo "🔍 Validating SKILL.md structure..."
+          if grep -q "心智模型" SKILL.md && grep -q "决策启发式" SKILL.md && grep -q "表达DNA" SKILL.md && grep -q "诚实边界" SKILL.md; then
+            echo "✅ SKILL.md contains all required sections"
+          else
+            echo "❌ SKILL.md is missing required sections"
+            exit 1
+          fi
+
+      - name: Check file structure
+        run: |
+          echo "📁 Checking project structure..."
+          required_files=(
+            "SKILL.md"
+            "README.md"
+            "README_EN.md"
+            "LICENSE"
+            "references/research/01-writings.md"
+            "references/research/02-conversations.md"
+            "references/research/03-expression-dna.md"
+            "references/research/04-external-views.md"
+            "references/research/05-decisions.md"
+            "references/research/06-timeline.md"
+          )
+          all_found=true
+          for file in "${required_files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "  ✅ $file"
+            else
+              echo "  ❌ $file (missing)"
+              all_found=false
+            fi
+          done
+          if [ "$all_found" = false ]; then
+            echo "❌ Some required files are missing"
+            exit 1
+          fi
+          echo "✅ All required files present"
