@@ -77,7 +77,7 @@
 ## 安装
 
 ```bash
-npx skills add derrickgong7/duan-yongping-skill
+npx skills add derrickgong87/duan-yongping-skill
 ```
 
 安装后在 Claude Code 里：
